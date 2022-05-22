@@ -7,12 +7,13 @@ namespace StudentsRegistrySeleniumAndPOM
 {
     public class TestsForHomePage
     {
-        protected IWebDriver driver = new ChromeDriver();
+        private IWebDriver driver;
         private HomePage page;
         [SetUp]
         public void Setup()
         {
-            page = new HomePage(driver);
+            this.driver = new ChromeDriver();
+            this.page = new HomePage(driver);
             page.Open();
         }
 
@@ -25,11 +26,37 @@ namespace StudentsRegistrySeleniumAndPOM
         [Test]
         public void ValidateHomePage_TitleContent()
         {
-            var expected = page.GetPageTitle();
-            Assert.AreEqual(expected, "MVC Example");
+            Assert.AreEqual("MVC Example", page.GetPageTitle());
         }
 
-        //[Test]
-        //public void ValidateHomePage_
+        [Test]
+        public void ValidateHomePage_PresentHeading()
+        {
+            page.LinkStudentsPage.Click();
+            page.LinkHomePage.Click();
+            Assert.IsTrue(page.IsOpen());
+            Assert.AreEqual("Students Registry", page.GetPageHeading());
+        }
+
+        [Test]
+        public void ValidateHomePage_StudentCountPresent()
+        {
+            var element = page.ElementStudentsCount.Displayed;
+            Assert.IsTrue(element);
+        }
+
+        [Test]
+        public void ValidateHomePage_StudentCountIsCorrect()
+        {
+            var driverViewStudent = new ChromeDriver();
+            var studentPage = new ViewStudentsPage(driverViewStudent);
+            studentPage.Open();
+            Assert.IsTrue(studentPage.IsOpen());
+            var listOfStudents = studentPage.GetStudents();
+            driverViewStudent.Quit();
+            var expected = int.Parse(page.ElementStudentsCount.Text);
+            Assert.AreEqual(expected, listOfStudents.Count);
+        }
+
     }
 }

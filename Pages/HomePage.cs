@@ -7,11 +7,11 @@ namespace StudentsRegistrySeleniumAndPOM.Pages
 {
     public class HomePage : BasePage
     {
-        private readonly IWebDriver driver;
         public HomePage(IWebDriver driver) : base(driver)
         {
-            this.driver = driver;
         }
+
+        public override string PageUrl => "https://mvc-app-node-express.nakov.repl.co/";
 
         public IWebElement ElementStudentsCount =>
             driver.FindElement(By.CssSelector("body > p > b"));
