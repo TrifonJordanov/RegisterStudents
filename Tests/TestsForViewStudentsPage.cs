@@ -27,8 +27,10 @@ namespace StudentsRegistrySeleniumAndPOM.Tests
         public void ValidateViewStudents_LinkWorkProperly()
         {
             page.LinkAddStudentPage.Click();
+            Assert.That("Register New Student" == page.GetPageHeading());
             page.LinkStudentsPage.Click();
             Assert.IsTrue(page.IsOpen());
+            Assert.That("Registered Students" == page.GetPageHeading());
         }
 
         [Test]

@@ -14,7 +14,7 @@ namespace StudentsRegistrySeleniumAndPOM.Pages
         {
             this.driver = driver;
             driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
         }
 
         public virtual string PageUrl => "https://mvc-app-node-express.nakov.repl.co/";

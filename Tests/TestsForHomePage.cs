@@ -30,9 +30,17 @@ namespace StudentsRegistrySeleniumAndPOM
         }
 
         [Test]
-        public void ValidateHomePage_PresentHeading()
+        public void ValidateHomePage_HeadingContent()
+        {
+            var expectedHeading = page.GetPageHeading();
+            Assert.AreEqual(expectedHeading, "Students Registry");
+        }
+
+        [Test]
+        public void ValidateHomePage_LinkWorkProperly()
         {
             page.LinkStudentsPage.Click();
+            Assert.That("Registered Students" == page.GetPageHeading());
             page.LinkHomePage.Click();
             Assert.IsTrue(page.IsOpen());
             Assert.AreEqual("Students Registry", page.GetPageHeading());

@@ -37,6 +37,16 @@ namespace StudentsRegistrySeleniumAndPOM.Tests
         }
 
         [Test]
+        public void ValidateAddStudentPage_LinkRedirectWorkProperly()
+        {
+            page.LinkHomePage.Click();
+            Assert.That("Students Registry" == page.GetPageHeading());
+            page.LinkAddStudentPage.Click();
+            Assert.IsTrue(page.IsOpen());
+            Assert.That("Register New Student" == page.GetPageHeading());
+        }
+
+        [Test]
         public void ValidateAddStudentPage_AddingProperlyStudent()
         {
             var data = page.GenerateStudentData();
@@ -47,9 +57,10 @@ namespace StudentsRegistrySeleniumAndPOM.Tests
             Assert.IsTrue(pageToGetStudents.IsOpen());
             var listOfStudents = pageToGetStudents.GetStudents();
             driverToViewStudents.Quit();
+            var expectedName = data[0];
             var expectedEmail = $"({data[1]})";
             var lastStudent = listOfStudents[^1].Split();
-            Assert.AreEqual(data[0], lastStudent[0]);
+            Assert.AreEqual(expectedName, lastStudent[0]);
             Assert.AreEqual(expectedEmail, lastStudent[1]);
         }
 
