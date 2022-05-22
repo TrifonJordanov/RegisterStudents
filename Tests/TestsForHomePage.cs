@@ -12,7 +12,7 @@ namespace StudentsRegistrySeleniumAndPOM
         [SetUp]
         public void Setup()
         {
-            var page = new HomePage(driver);
+            page = new HomePage(driver);
             page.Open();
         }
 
